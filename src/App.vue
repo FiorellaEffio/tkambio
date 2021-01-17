@@ -1,15 +1,23 @@
 <template>
   <div id="app">
     <div class="header p-4">
-      <div class="row m-0 d-flex align-items-center">
-        <div class="col px-0 d-flex justify-content-start">
+      <div class="row m-0 d-flex align-items-center menu">
+        <div class="col px-0 d-flex justify-content-start d-lg-none">
           <img alt="Vue logo" style="height: 29px;" src="./assets/img/icons/menu_icon.png">
         </div>
-        <div class="col px-0 d-flex justify-content-center">
+        <div class="col col-lg-3 px-0 d-flex justify-content-center">
           <img alt="Vue logo" class="logo" src="./assets/img/icons/logo.png">
         </div>
         <div class="col px-0 d-flex justify-content-end">
           <img class="d-md-none" alt="Vue logo" src="./assets/img/icons/login_icon.png">
+          <div class="d-none d-lg-block">
+            <div class="d-flex h-full align-items-center mx-4">
+              <p class="text-white text-sm mb-0 mx-3">Blog</p>
+              <p class="text-white text-sm mb-0 mx-3">Promociones</p>
+              <p class="text-white text-sm mb-0 mx-3 text-nowrap">Preguntas Frecuentes</p>
+              <p class="text-white text-sm mb-0 mx-3">Contáctanos</p>
+            </div>
+          </div>
           <div class="d-none d-md-block text-white rounded-pill border px-4 py-3 text-sm">
             Iniciar sesión
           </div>
@@ -72,19 +80,22 @@
       </div>
     </div>
 
-    <div class="px-4 mx-auto pt-4 mb-5" style="max-width: 400px;">
-      <p class="mt-5 mb-2 text-xs text-nowrap text-center">Operaciones de cambio inmediatas a través de:</p>
-      <div class="row mb-1 d-flex">
-        <div class="col-6 px-0">
-          <img alt="BCP" src="./assets/img/banks/bcp.png">
-          <p class="text-xs text-center">Todos los días</p>
-        </div>
-        <div class="col-6 px-0">
-          <img alt="Interbank" src="./assets/img/banks/interbank.png">
-          <p class="text-xs text-center">de Lunes a Sábados</p>
+    <div class="px-4 mx-auto pt-4 mb-5 d-md-flex mt-5 content-operations">
+      <div class="bank-logos">
+        <p class="mb-2 text-xs text-nowrap text-center">Operaciones de cambio inmediatas a través de:</p>
+        <div class="row mb-1 d-flex">
+          <div class="col-6 px-0">
+            <img alt="BCP" src="./assets/img/banks/bcp.png">
+            <p class="text-xs text-center text-secondary">Todos los días</p>
+          </div>
+          <div class="col-6 px-0">
+            <img alt="Interbank" src="./assets/img/banks/interbank.png">
+            <p class="text-xs text-center text-secondary">de Lunes a Sábados</p>
+          </div>
         </div>
       </div>
-      <p class="col-8 mx-auto text-xs text-center">Operaciones interbancarias a todos los bancos de Lima</p>
+      <hr class="d-none d-md-block pipe mx-2"/>
+      <p class="col-8 col-md-4 mx-auto text-xs text-center d-flex justify-content-center align-items-center">Operaciones interbancarias a todos los bancos de Lima</p>
     </div>
   </div>
 </template>
@@ -129,6 +140,9 @@ $desktop: 992px;
 .text-sm {
   font-size: 14px;
 }
+.h-full {
+  height: 100%;
+}
 .header {
   background-image: url('./assets/img/bg-mobile.jpg');
   height: 400px;
@@ -138,6 +152,14 @@ $desktop: 992px;
   @media screen and (min-width: $tablet) {
     height: 570px;
     background-image: url('./assets/img/bg-tablet.png');
+  }
+  @media screen and (min-width: $desktop) {
+    height: 570px;
+    background-image: url('./assets/img/bg-desktop.png');
+    .menu {
+      max-width: 1200px;
+      margin: auto !important;
+    }
   }
 }
 .main-content {
@@ -149,7 +171,7 @@ $desktop: 992px;
   .content-info {
     @media screen and (min-width: $tablet) {
       max-width: 285px;
-      padding: 0 20px;
+      padding-left: 40px;
       .max-w-xs {
         max-width: 170px;
       }
@@ -159,5 +181,18 @@ $desktop: 992px;
       }
     }
   }
+}
+.content-operations {
+  max-width: 400px;
+  @media screen and (min-width: $tablet) {
+    max-width: 585px;
+    .bank-logos {
+      margin-right: 30px;
+    }
+  }
+}
+.pipe {
+  height: 75px !important;
+  width: 1px;
 }
 </style>
