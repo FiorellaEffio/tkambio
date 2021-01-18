@@ -21,14 +21,14 @@ export default new Vuex.Store({
   },
   mutations: {
     setCurrencyDataValues(state, data) {
-      state.currentType = data.quotes['USDPEN'];
-      state.currentTypeSell = data.quotes['USDPEN'] + 0.2;
+      state.currentType = data.rates['PEN'];
+      state.currentTypeSell = data.rates['PEN'] + 0.2;
     }
   },
   actions: {
     setCurrencyData(context) {
       axios
-        .get('http://api.currencylayer.com/live?access_key=ae7c51efd65bbadf5ade163cb5520fd7&format=1&currencies=PEN')
+        .get('https://currencyapi.net/api/v1/rates?key=gmmqGhrfkkCuEb0g1OdYjvgMx5tDA4ox9VUW&base=USD')
         .then(response => {
           context.commit('setCurrencyDataValues', response.data);
         })

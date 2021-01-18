@@ -1,6 +1,6 @@
 <template>
   <div class="position-relative d-flex justify-content-center">
-    <div class="mx-4 rounded-xl p-2 pb-4 calculator" style="background-color: #EEEEEE; max-width: 360px;">
+    <div class="mx-4 rounded-xl p-2 pb-4 calculator">
       <div class="m-0 rounded-lg bg-white px-4 py-3">
         <div class="col px-0 calculator-content">
           <div class="row col-lg-6">
@@ -15,8 +15,8 @@
                 {{ changeDollars ? 'SOLES' : 'DÓLARES' }}
               </p>
               <div>
-                <img v-if="changeDollars" style="margin-bottom: 3px;" alt="Peru" src="@/assets/img/countries/peru.png">
-                <img v-else style="margin-bottom: 3px;" alt="USA" src="@/assets/img/countries/usa.png">
+                <img v-if="changeDollars" class="country-img" alt="Peru" src="@/assets/img/countries/peru.png">
+                <img v-else class="country-img" alt="USA" src="@/assets/img/countries/usa.png">
               </div>
             </div>
           </div>
@@ -28,8 +28,8 @@
                     {{ changeDollars ? 'SOLES' : 'DÓLARES' }}
                   </p>
                   <div>
-                    <img v-if="changeDollars" style="margin-bottom: 3px;" alt="Peru" src="@/assets/img/countries/peru.png">
-                    <img v-else style="margin-bottom: 3px;" alt="USA" src="@/assets/img/countries/usa.png">
+                    <img v-if="changeDollars" class="country-img" alt="Peru" src="@/assets/img/countries/peru.png">
+                    <img v-else class="country-img" alt="USA" src="@/assets/img/countries/usa.png">
                   </div>
                 </div>
                 <div class="col-6 d-flex align-items-center">
@@ -37,8 +37,8 @@
                     {{ !changeDollars ? 'SOLES' : 'DÓLARES' }}
                   </p>
                   <div>
-                    <img v-if="!changeDollars" style="margin-bottom: 3px;" alt="Peru" src="@/assets/img/countries/peru.png">
-                    <img v-else style="margin-bottom: 3px;" alt="USA" src="@/assets/img/countries/usa.png">
+                    <img v-if="!changeDollars" class="country-img" alt="Peru" src="@/assets/img/countries/peru.png">
+                    <img v-else class="country-img" alt="USA" src="@/assets/img/countries/usa.png">
                   </div>
                 </div>
               </div>
@@ -60,8 +60,8 @@
             <div class="d-flex col-5 justify-content-center align-items-center mt-2 d-lg-none">
               <p class="mx-2 mb-0 text-xs">{{ !changeDollars ? 'SOLES' : 'DÓLARES' }}</p>
               <div>
-                <img v-if="!changeDollars" style="margin-bottom: 3px;" alt="Peru" src="@/assets/img/countries/peru.png">
-                <img v-else style="margin-bottom: 3px;" alt="USA" src="@/assets/img/countries/usa.png">
+                <img v-if="!changeDollars" class="country-img" alt="Peru" src="@/assets/img/countries/peru.png">
+                <img v-else class="country-img" alt="USA" src="@/assets/img/countries/usa.png">
               </div>
             </div>
           </div>
@@ -133,6 +133,9 @@ export default {
 <style lang="scss">
 $desktop: 992px;
 .calculator {
+  background-color: #EEEEEE;
+  width: 90%;
+  max-width: 360px;
   @media screen and (min-width: $desktop) {
     width: 550px;
     height: 280px;
@@ -158,6 +161,9 @@ $desktop: 992px;
     .currency-values {
       flex-direction: row !important;
     }
+  }
+  .country-img {
+    margin-bottom: 3px;
   }
 }
 </style>
