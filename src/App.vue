@@ -82,7 +82,6 @@ $desktop: 992px;
   font-family: 'Argentum', sans-serif;
 }
 
-
 .logo {
   max-height: 29px;
   @media screen and (min-width: $tablet) {
