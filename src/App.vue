@@ -42,12 +42,17 @@
                 <div class="row col-lg-6">
                   <div class="col-7 col-lg-12 d-flex flex-column justify-content-start">
                     <p class="text-start my-1 text-sm"><strong>Envías</strong></p>
-                    <p class="h3 text-start"><u>100.000,00</u></p>
+                    <p class="h3 text-start"><u>
+                      <input v-model="sendMoney" type="number" @keyup="getMoneyValue" class="input-money underline"/>
+                    </u></p>
                   </div>
                   <div class="d-flex col-5 justify-content-center align-items-center mb-3 d-lg-none">
-                    <p class="mx-2 mb-0 text-xs">SOLES</p>
+                    <p class="mx-2 mb-0 text-xs">
+                      {{ changeDollars ? 'SOLES' : 'DÓLARES' }}
+                    </p>
                     <div>
-                      <img style="margin-bottom: 3px;" alt="Peru" src="./assets/img/countries/peru.png">
+                      <img v-if="changeDollars" style="margin-bottom: 3px;" alt="Peru" src="./assets/img/countries/peru.png">
+                      <img v-else style="margin-bottom: 3px;" alt="USA" src="./assets/img/countries/usa.png">
                     </div>
                   </div>
                 </div>
@@ -55,15 +60,21 @@
                   <div class="d-none d-lg-block">
                     <div class="d-flex">
                       <div class="col-6 d-flex align-items-center">
-                        <p class="mx-2 mb-0 text-xs">SOLES</p>
+                        <p class="mx-2 mb-0 text-xs">
+                          {{ changeDollars ? 'SOLES' : 'DÓLARES' }}
+                        </p>
                         <div>
-                          <img style="margin-bottom: 3px;" alt="Peru" src="./assets/img/countries/peru.png">
+                          <img v-if="changeDollars" style="margin-bottom: 3px;" alt="Peru" src="./assets/img/countries/peru.png">
+                          <img v-else style="margin-bottom: 3px;" alt="USA" src="./assets/img/countries/usa.png">
                         </div>
                       </div>
                       <div class="col-6 d-flex align-items-center">
-                        <p class="mx-5 mb-0 text-xs receive-currency">DÓLARES</p>
+                        <p class="mx-5 mb-0 text-xs receive-currency">
+                          {{ !changeDollars ? 'SOLES' : 'DÓLARES' }}
+                        </p>
                         <div>
-                          <img style="margin-bottom: 3px;" alt="USA" src="./assets/img/countries/usa.png">
+                          <img v-if="!changeDollars" style="margin-bottom: 3px;" alt="Peru" src="./assets/img/countries/peru.png">
+                          <img v-else style="margin-bottom: 3px;" alt="USA" src="./assets/img/countries/usa.png">
                         </div>
                       </div>
                     </div>
@@ -71,19 +82,22 @@
 
                   
                   <hr class="mt-lg-1">
-                  <div class="rounded-circle position-absolute btn btn-info btn-change" style="top: -26px; right: 20px;">
+                  <div @click="changeOrder" class="rounded-circle position-absolute btn btn-info btn-change" style="top: -26px; right: 20px;">
                     <img alt="Peru" src="./assets/img/icons/change_icon.png">
                   </div>
                 </div>
                 <div class="row mt-3 mb-1 col-lg-6 mt-lg-0 receive-box">
                   <div class="col-7 col-lg-12 d-flex flex-column justify-content-start">
                     <p class="text-start my-1 text-sm"><strong>Recibes</strong></p>
-                    <p class="h3 text-start"><u>100.000,00</u></p>
+                    <p class="h3 text-start"><u>
+                      <input type="number" v-model="getMoney" @keyup="sendMoneyValue"  class="input-money underline"/>  
+                    </u></p>
                   </div>
                   <div class="d-flex col-5 justify-content-center align-items-center mt-2 d-lg-none">
-                    <p class="mx-2 mb-0 text-xs">DÓLARES</p>
+                    <p class="mx-2 mb-0 text-xs">{{ !changeDollars ? 'SOLES' : 'DÓLARES' }}</p>
                     <div>
-                      <img style="margin-bottom: 3px;" alt="Peru" src="./assets/img/countries/usa.png">
+                      <img v-if="!changeDollars" style="margin-bottom: 3px;" alt="Peru" src="./assets/img/countries/peru.png">
+                      <img v-else style="margin-bottom: 3px;" alt="USA" src="./assets/img/countries/usa.png">
                     </div>
                   </div>
                 </div>
@@ -91,7 +105,10 @@
             </div>
             <div class="d-flex flex-column mt-3 currency-values justify-content-center">
               <p class="mb-0 text-xs text-center mx-2">Tipo de Cambio</p>
-              <p class="text-sm text-center"><strong><u>Compra: 3.398 </u></strong> | Venta: 3.426</p>
+              <p class="text-sm text-center">
+                <span :class="{'underline': changeDollars}">Compra: 3.398</span> | 
+                <span :class="{'underline': !changeDollars}">Venta: 3.426</span>
+              </p>
             </div>
             <p class="text-xs mb-4 px-2 text-center"><u>¿Tienes un código promocional? Ingrésalo acá</u></p>
           </div>
@@ -130,6 +147,38 @@
 export default {
   name: 'App',
   components: {
+  },
+  data() {
+    return {
+      getMoney: 0,
+      sendMoney: 0,
+      currentType: 3.65,
+      currentTypeSell: 3.4,
+      changeDollars: true
+    }
+  },
+  computed: {
+  },
+  methods: {
+    getMoneyValue() {
+      if(!this.changeDollars) {
+        this.getMoney = this.sendMoney * this.currentTypeSell
+      } else {
+        this.getMoney = this.sendMoney / this.currentType
+      }
+    },
+    sendMoneyValue() {
+      if(!this.changeDollars) {
+        this.sendMoney = this.getMoney / this.currentTypeSell
+      } else {
+        this.sendMoney = this.getMoney * this.currentType
+      }
+    },
+    changeOrder() {
+      this.changeDollars = !this.changeDollars
+      this.sendMoney = this.getMoney
+      this.getMoneyValue()
+    }
   }
 }
 </script>
@@ -243,6 +292,18 @@ $desktop: 992px;
     max-width: 400px;
   }
 }
+.input-money {
+  outline: none;
+  border: 0;
+  width: -webkit-fill-available;
+  -moz-appearance: textfield;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .calculator {
   @media screen and (min-width: $desktop) {
     width: 550px;
@@ -252,6 +313,7 @@ $desktop: 992px;
       display: flex;
       flex-wrap: wrap;
     }
+
     .receive-currency {
       margin-right: 8px !important;
     }
@@ -266,14 +328,18 @@ $desktop: 992px;
       padding-left: 75px;
     }
     .currency-values {
-      flex-direction: row;
+      flex-direction: row !important;
     }
   }
 
 }
-    .get-btn {
-        @media screen and (min-width: $desktop) {
-
-      bottom: 45px !important;}
-    }
+.get-btn {
+  @media screen and (min-width: $desktop) {
+    bottom: 45px !important;
+  }
+}
+.underline {
+  text-decoration: underline;
+  font-weight: bold;
+}
 </style>
